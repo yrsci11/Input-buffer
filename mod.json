@@ -1,0 +1,40 @@
+{
+	"geode": "5.11.2",
+	"gd": {
+		"android": "2.2081"
+	},
+	"version": "v1.0.0",
+	"id": "yrcsi.input-buffer",
+	"name": "Input Buffer",
+	"developer": "yrcsi",
+	"description": "Delays a click or wave release by a few ticks when the predicted path says you would die.",
+	"settings": {
+		"enabled": {
+			"type": "bool",
+			"name": "Enabled",
+			"description": "Turn the input buffer on or off.",
+			"default": true
+		},
+		"stage": {
+			"type": "string",
+			"name": "Buffer stage",
+			"description": "Max delay in ticks (240 ticks = 1 second, so 4 ticks = 1 frame at 60fps). Format: all inputs / wave inputs.",
+			"default": "2/2",
+			"one-of": ["2/2", "4/4", "8/8", "16/8"]
+		},
+		"horizon": {
+			"type": "int",
+			"name": "Look-ahead (ticks)",
+			"description": "How far ahead the path is checked for hazards.",
+			"default": 48,
+			"min": 8,
+			"max": 120
+		},
+		"logging": {
+			"type": "bool",
+			"name": "Debug log",
+			"description": "Log every time the buffer saves you (check Geode logs).",
+			"default": false
+		}
+	}
+}
