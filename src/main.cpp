@@ -107,9 +107,7 @@ std::vector<CCRect> collectDanger(GJBaseGameLayer* gl, CCRect start, float dx, i
     float minX = start.getMinX() - kPadding;
     float maxX = start.getMaxX() + std::fabs(dx) * horizon + kPadding;
 
-    CCObject* o = nullptr;
-    CCARRAY_FOREACH(gl->m_objects, o) {
-        auto obj = static_cast<GameObject*>(o);
+    for (auto obj : CCArrayExt<GameObject*>(gl->m_objects)) {
         if (!obj) continue;
         float x = obj->getPositionX();
         if (x < minX - 60.f || x > maxX + 60.f) continue;
@@ -235,7 +233,7 @@ class $modify(IBGameLayer, GJBaseGameLayer) {
         g.queue.push_back({down, button, isPlayer1, g.tick + d});
     }
 
-    void processCommands(float dt) {
+    void processCommands(float dt, bool isHalfTick, bool isLastTick) {
         if (typeinfo_cast<PlayLayer*>(this)) {
             ++g.tick;
 
@@ -266,7 +264,7 @@ class $modify(IBGameLayer, GJBaseGameLayer) {
                 g.replaying = false;
             }
         }
-        GJBaseGameLayer::processCommands(dt);
+        GJBaseGameLayer::processCommands(dt, isHalfTick, isLastTick);
     }
 };
 
